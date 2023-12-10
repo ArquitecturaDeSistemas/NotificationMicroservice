@@ -7,7 +7,8 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-const url = "user:password@tcp(127.0.0.1:3306)/cartdb"
+const dbnombre, tabla string = "microservicionotificacion", "notificacion"
+const url = "user:password@tcp(127.0.0.1:3306)/" + dbnombre
 
 var db *sql.DB
 
@@ -34,7 +35,7 @@ func Ping() {
 
 func IsTable() (bool, error) {
 	query := "SELECT table_name FROM information_schema.tables WHERE table_name = ?"
-	var tableName string = "carrito"
+	var tableName string = tabla
 	var existe string
 	err := db.QueryRow(query, tableName).Scan(&existe)
 	switch {
