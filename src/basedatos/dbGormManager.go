@@ -1,12 +1,10 @@
 package basedatos
 
 import (
-	"database/sql"
-	"fmt"
-
 	_ "github.com/go-sql-driver/mysql"
 )
 
+/*
 const url = "user:password@tcp(localhost:3306)/cartdb"
 
 var db *sql.DB
@@ -50,3 +48,4 @@ func IsTable() (bool, error) {
 		return true, nil // La tabla existe
 	}
 }
+*/
