@@ -1,10 +1,8 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"notificationmicroservice/basedatos"
-	"os"
 
 	"log"
 	"net"
@@ -29,19 +27,16 @@ func main() {
 	basedatos.EjecutarMigraciones(bd)
 
 	//gRPC start
-	puerto := "localhost:50051"
+	puerto := "0.0.0.0:50051"
 	listener, err := net.Listen("tcp", puerto)
 	if err != nil {
 		log.Fatalf("No se pudo crear Listener: %s", err)
 	}
-
 	fmt.Printf("Servidor activo en puerto %s", puerto)
-	serverNotification := grpc.NewServer()
 
-	if err = serverNotification.Serve(listener); err != nil {
-		log.Fatalf("Error Servidor (?): %s", err)
+	serv := grpc.NewServer()
+
+	if err = serv.Serve(listener); err != nil {
+		log.Fatalf("Fallo en servir: %s", err)
 	}
-
-	fmt.Printf("Servidor ok %s", puerto)
-	bufio.NewReader(os.Stdin).ReadBytes('\n')
 }
