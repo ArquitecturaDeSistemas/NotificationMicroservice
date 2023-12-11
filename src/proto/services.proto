@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "github.com/ArquitecturaDeSistemas/usermicroservice/src/proto";
+
+service UserService {
+    rpc CreateNotification (CreateNotificationRequest) returns (CreateNotificationResponse);
+    rpc UpdateNotification (UpdateNotificationRequest) returns (UpdateNotificationResponse);
+    rpc DeleteNotification (DeleteNotificationRequest) returns (DeleteNotificationResponse);
+    rpc ListActiveNotification (ListActiveNotificationRequest) returns (ListActiveNotificationResponse);  
+}
+
+message CreateNotificationRequest {
+    string titulo = 1;
+    string usuario_id = 2;
+    string tarea_id = 3;
+    string fecha_termino = 4;
+}
+
+message CreateNotificationResponse {
+    bool status =1;
+}
+
+message UpdateNotificationRequest {
+    string titulo = 1;
+    string usuario_id = 2;
+    string tarea_id = 3;
+    string fecha_termino = 4;
+}
+
+message UpdateNotificationResponse {
+    bool status =1;
+}
+
+message DeleteNotificationRequest {
+    string usuario_id = 1;
+    string tarea_id = 2;
+}
+
+message DeleteNotificationResponse {
+    bool status =1;
+}
+
+message ListActiveNotificationRequest {
+    string usuario_id = 1;
+    string tarea_id = 2;
+}
+
+message ListActiveNotificationResponse {
+    repeated Notification notifications = 1;
+}
+
+message Notification{  
+    string titulo = 1;   
+    string fecha_termino = 2;
+}
