@@ -1,13 +1,22 @@
 package main
 
 import (
-	"fmt"
+	"database/sql"
 	"notificationmicroservice/basedatos"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
-	fmt.Println("hola")
-	basedatos.Connect()
-	basedatos.IsTable()
-	basedatos.Close()
+
+	db := new(basedatos.MySQLConnection)
+	basedatos.Connect(db)
+	bd := basedatos.GetDB(db).(*sql.DB)
+	basedatos.IsOk(db)
+
+	/*
+		basedatos.Connect()
+		basedatos.IsTable()
+		basedatos.Close()
+	*/
 }
