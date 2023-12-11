@@ -36,6 +36,8 @@ func main() {
 
 	serv := grpc.NewServer()
 
+	pb.RegisterNotificationServiceServer(serv, &Server{})
+
 	if err = serv.Serve(listener); err != nil {
 		log.Fatalf("Fallo en servir: %s", err)
 	}
