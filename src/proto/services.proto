@@ -4,7 +4,7 @@ package proto;
 
 option go_package = "github.com/ArquitecturaDeSistemas/usermicroservice/src/proto";
 
-service UserService {
+service NotificationService {
     rpc CreateNotification (CreateNotificationRequest) returns (CreateNotificationResponse);
     rpc UpdateNotification (UpdateNotificationRequest) returns (UpdateNotificationResponse);
     rpc DeleteNotification (DeleteNotificationRequest) returns (DeleteNotificationResponse);
