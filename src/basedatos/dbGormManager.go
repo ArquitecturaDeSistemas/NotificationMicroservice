@@ -1,32 +1,41 @@
 package basedatos
 
 import (
-	//"fmt"
-	//"log"
-	//"time"
-
 	"fmt"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-
-	"github.com/joho/godotenv"
-	//"os"
 )
 
-var gormdb *gorm.DB
+type GormMySQLConnection struct {
+	connection *gorm.DB
+}
 
-var DataBase = func() (db *gorm.DB) {
-	errorVariables := godotenv.Load()
-	if errorVariables != nil {
-		fmt.Println("error carga Variables de Entorno")
-		panic(errorVariables)
-	}
-
-	db, err := gorm.Open(mysql.Open(DSN), &gorm.Config{})
+func (db *GormMySQLConnection) connect() {
+	fmt.Println("intentando coneccion MySQL")
+	conexion, err := gorm.Open(mysql.Open(DSN), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
+	db.connection = conexion
+	fmt.Println(err)
+	fmt.Println(conexion)
+}
 
-	return db
+func (db *GormMySQLConnection) getDB() any {
+	fmt.Println("intentando recobrar MySQL")
+	fmt.Println(db.connection)
+	return db.connection
+}
+
+func (db *GormMySQLConnection) isok() (bool, error) {
+	return false, db.connection.Error
+}
+
+func (db *GormMySQLConnection) close() {
+
+}
+
+func (db GormMySQLConnection) ping() {
+
 }

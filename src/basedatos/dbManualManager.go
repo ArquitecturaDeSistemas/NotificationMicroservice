@@ -25,12 +25,13 @@ func (db *MySQLConnection) connect() {
 
 func (db *MySQLConnection) getDB() any {
 	fmt.Println("intentando recobrar MySQL")
+	fmt.Println(db.connection)
 	return db.connection
 }
 
 func (db *MySQLConnection) isok() (bool, error) {
 	query := "SELECT table_name FROM information_schema.tables WHERE table_name = ?"
-	var tableName string = DBTABLE
+	var tableName string = envar["DB_TABLE"]
 	var existe string
 	err := db.connection.QueryRow(query, tableName).Scan(&existe)
 	switch {
@@ -47,6 +48,19 @@ func (db *MySQLConnection) isok() (bool, error) {
 		fmt.Println("Tabla si existe")
 		return true, nil // La tabla existe
 	}
+}
+
+func (db *MySQLConnection) close() {
+	fmt.Println("Conexion  terminada")
+	db.connection.Close()
+}
+
+func (db MySQLConnection) ping() {
+	err := db.connection.Ping()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("ping OK")
 }
 
 /*
